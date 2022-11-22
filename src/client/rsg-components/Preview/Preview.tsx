@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import PlaygroundError from 'rsg-components/PlaygroundError';
 import ReactExample from 'rsg-components/ReactExample';
 import Context from 'rsg-components/Context';
@@ -86,7 +87,10 @@ export default class Preview extends Component<PreviewProps, PreviewState> {
 		window.requestAnimationFrame(() => {
 			// this.unmountPreview();
 			try {
-				ReactDOM.render(wrappedComponent, this.mountNode);
+				// React version 17
+				// ReactDOM.render(wrappedComponent, this.mountNode);
+				const root = createRoot(this.mountNode);
+				root.render(wrappedComponent);
 			} catch (err) {
 				/* istanbul ignore next: it is near-impossible to trigger a sync error from ReactDOM.render */
 				if (err instanceof Error) {

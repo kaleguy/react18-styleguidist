@@ -2,6 +2,7 @@
 import './polyfills';
 import './styles';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import renderStyleguide from './utils/renderStyleguide';
 import { getParameterByName, hasInHash, getHash } from './utils/handleHash';
 
@@ -36,11 +37,13 @@ const scrollToOrigin = () => {
 const render = () => {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	const styleguide = require('!!../loaders/styleguide-loader!./index.js');
-
-	ReactDOM.render(
+	// React version 17
+	/*	ReactDOM.render(
 		renderStyleguide(styleguide, codeRevision),
 		document.getElementById(styleguide.config.mountPointId)
-	);
+	);*/
+	const root = createRoot(styleguide.config.mountPointId);
+	root.render(renderStyleguide(styleguide, codeRevision));
 };
 
 window.addEventListener('hashchange', render);
